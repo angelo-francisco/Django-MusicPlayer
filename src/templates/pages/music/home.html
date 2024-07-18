@@ -1,7 +1,7 @@
 {% extends 'base/base-music.html' %}
 
 {% block head %}
-
+    <link href="https://css.gg/css" rel="stylesheet" />
 {% endblock head %}
 
 {% block title %}
@@ -9,6 +9,22 @@
 {% endblock title %}
     
 {% block content %}
+    <div class="modal" role="dialog" id="my_modal_9">
+        <div class="card bg-base-100 w-96 shadow-xl" style="border-radius: 8px;">
+            <figure>
+                <img
+                src="{{ request.session.song_banner}}"
+                alt="Banner" />
+            </figure>
+            <div class="card-body">
+                <small>Sent by {{ request.session.song_user }}, in {{request.session.song_created_at }}</small>
+                <h2 class="card-title" style="font-size: 28px;">{{ request.session.song_name }}</h2>
+                <p>{{ request.session.song_description }}</p>
+                <span><strong>Singer</strong>: {{ request.session.song_singer }}</span>
+            </div>
+            <a href="/" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" style="border-radius: 8px;" >✕</a>
+        </div>
+    </div>
     {% include 'partials/home-navbar.html' %}
     <main>
         <article>
@@ -17,12 +33,29 @@
         </article>
         <article>
             <h5 class="text-2xl font-bold">All songs</h5>
-            <hr>
-            
-            {% for song in songs %}
-                {{ song }}
+            <hr style="margin-bottom: 10px;">
+            <div style="display:flex;flex-direction: row;flex-wrap: wrap; gap: 10px;">
+                {% for song in songs %}
+                <div>
+                    <div class="card bg-base-100 image-full w-96 shadow-xl">
+                        <figure>
+                            <img
+                            src="{{ song.banner.url }}"
+                        alt="Shoes" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title" style="font-size: 30px;">{{ song.name }}</h2>
+                        <p>{{ song.description }}</p>
+                        <div class="card-actions justify-end">
+                            <a href=""><i class="gg-play-button-o"></i></a>
+                            <a href="{% url 'info_music' song.id %}""><i class="gg-info"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-                
+        </div>    
         </article>
     </main>
     

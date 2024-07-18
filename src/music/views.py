@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.core.serializers import json
 from django.contrib import messages
 from .models import Song
 
@@ -34,3 +35,14 @@ def addNewMusic(request):
         messages.success(request, 'Nova música adicionada!')
         return redirect(reverse('home'))
 
+def infoMusic(request, id):
+    if request.method == "GET":
+        song = get_object_or_404(Song, id=id)
+        request.session['song_name'] = song.name
+        request.session['song_description'] = song.description
+        request.session['song_banner'] = song.banner.url if song.banner else ''
+        request.session['song_created_at'] = song.created_at.strftime('%d/%m/%Y')
+        request.session['song_singer'] = song.singer
+        request.session['song_user'] = song.user.username if song.user else ''
+
+        return redirect('/music/#my_modal_9')
