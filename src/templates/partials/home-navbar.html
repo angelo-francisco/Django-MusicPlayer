@@ -1,0 +1,106 @@
+{% extends 'base/base-music.html' %}
+
+{% block head %}
+    
+{% endblock head %}
+    
+{% block title %}
+    
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="modal" role="dialog" id="my_modal_8">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">Music Player</h3>
+        <p class="py-4">Add your musics here</p>
+        <form action="{% url 'add_music' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="input input-bordered flex items-center gap-2" style="margin-bottom: 8px;">
+                Name
+                <input type="text" class="grow" name="music-name" required>
+            </label>
+            <label class="input input-bordered flex items-center gap-2" style="margin-bottom: 8px;">
+                Description
+                <input type="text" class="grow" name="music-description" required>
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+                Singer
+                <input type="text" class="grow" name="music-singer" required>
+            </label>
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text">Banner</span>
+                </div>
+                <input type="file" class="file-input file-input-bordered w-full max-w-xs" name="music-banner" required>
+            </label>
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text">Music File</span>
+                </div>
+                <input type="file" class="file-input file-input-bordered w-full max-w-xs" name="music-file" required>
+            </label>
+            <div class="modal-action">
+                <button class="btn">Done</a>
+            </div>
+        </form>    
+        
+    </div>
+</div>
+<div class="navbar bg-base-100">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
+        </div>
+        <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li><a href="/">Home</a></li>
+        <li><a href="#my_modal_8">New music</a></li>
+        
+        <li><a>Playlists</a></li>
+    </ul>
+</div>
+    </div>
+        <div class="navbar-center">
+            <a class="btn btn-ghost text-xl">Hi, {{ request.user.username}}!</a>
+        </div>
+        <div class="navbar-end">
+            <div class="form-control">
+                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+              </div>
+              <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                  <div class="w-10 rounded-full">
+                    <img
+                      alt="Tailwind CSS Navbar component"
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  </div>
+                </div>
+                <ul
+                  tabindex="0"
+                  class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                  <li>
+                    <a class="justify-between">
+                      Profile
+                    </a>
+                  </li>
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </div>
+    </div>
+</div>
+{% endblock content %}
