@@ -25,6 +25,27 @@
             <a href="/" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" style="border-radius: 8px;" >✕</a>
         </div>
     </div>
+    <dialog id="my_modal_10" class="modal">
+        <div class="modal-box" style="background-color: rgba(0, 0, 0, 0.563);display: flex;justify-content: left;gap: 10px;">
+            <div>
+                <img src="{{ request.session.song_banner }}" style="width: 100px;height:100px;border-radius: 50%;">
+            </div>
+            <div style="display: flex;flex-direction: column;justify-content: space-between;">
+                <div style="display: flex;flex-direction: column;">
+                    <span style="font-size: 20px;">{{ request.session.song_name }}</span>
+                    <span>{{ request.session.song_singer }}</span>
+                </div>
+                <div style="width: 150px;">
+                    <audio controls autoplay style="border-radius: 8px;width: 350px;" muted>
+                        <source src="{{ request.session.song_file }}" type="audio/mpeg">
+                        Your browser doesn't support the audio element
+                    </audio>
+                </div>
+            </div>
+            <a href="/" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" style="border-radius: 8px;" >✕</a>
+
+        </div>
+    </dialog>
     {% include 'partials/home-navbar.html' %}
     <main>
         <article>
@@ -47,7 +68,7 @@
                         <h2 class="card-title" style="font-size: 30px;">{{ song.name }}</h2>
                         <p>{{ song.description }}</p>
                         <div class="card-actions justify-end">
-                            <a href=""><i class="gg-play-button-o"></i></a>
+                            <a href="{% url 'play_music' song.id %}"><i class="gg-play-button-o"></i></a>
                             <a href="{% url 'info_music' song.id %}""><i class="gg-info"></i></a>
 
                         </div>

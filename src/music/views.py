@@ -46,3 +46,13 @@ def infoMusic(request, id):
         request.session['song_user'] = song.user.username if song.user else ''
 
         return redirect('/music/#my_modal_9')
+
+def playMusic(request, id):
+    if request.method == "GET":
+        song = get_object_or_404(Song, id=id)
+        request.session['song_name'] = song.name
+        request.session['song_banner'] = song.banner.url if song.banner else ''
+        request.session['song_file'] = song.song_file.url
+        request.session['song_singer'] = song.singer
+
+        return redirect('/music/#my_modal_10')
