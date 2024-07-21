@@ -16,21 +16,25 @@ def _signup(request):
         else:
             form = UserCreationForm(request.POST)
             if form.is_valid():
-                user = User.objects.filter(username=form.cleaned_data['username'])
+                user = User.objects.filter(username=form.cleaned_data["username"])
                 if user.exists():
-                    messages.info(request, 'Username já existe!')
-                    return redirect(reverse('signup'))
+                    messages.info(request, "Username já existe!")
+                    return redirect(reverse("signup"))
                 form.save()
 
-                messages.add_message(request, messages.SUCCESS, "Your data is signed 😁")
+                messages.add_message(
+                    request, messages.SUCCESS, "Your data is signed 😁"
+                )
                 return redirect("login")
             messages.add_message(
-                request, messages.ERROR, "Por favor, preencha correctamente o formulário!"
+                request,
+                messages.ERROR,
+                "Por favor, preencha correctamente o formulário!",
             )
             return redirect("signup")
     else:
-        messages.info(request, 'Você já está logado!')
-        return redirect(reverse('home'))
+        messages.info(request, "Você já está logado!")
+        return redirect(reverse("home"))
 
 
 def _login(request):
@@ -48,8 +52,8 @@ def _login(request):
             messages.error(request, "Username ou senha inválidos!")
             return redirect("login")
     else:
-        messages.info(request, 'Você já está logado!')
-        return redirect(reverse('home'))
+        messages.info(request, "Você já está logado!")
+        return redirect(reverse("home"))
 
 
 def _logout(request):
@@ -58,5 +62,5 @@ def _logout(request):
 
         messages.success(request, "Deslogado com sucesso, volte sempre 😭")
         return redirect(reverse("login"))
-    messages.info(request, 'Você não está logado!')
-    return redirect(reverse('login'))
+    messages.info(request, "Você não está logado!")
+    return redirect(reverse("login"))

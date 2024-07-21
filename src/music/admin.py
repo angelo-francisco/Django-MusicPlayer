@@ -3,7 +3,7 @@ from .models import *
 
 admin.site.register(
     [
-        Song, 
+        Song,
         RecentMusic,
     ]
 )

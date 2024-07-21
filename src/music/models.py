@@ -6,8 +6,8 @@ class Song(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     singer = models.CharField(max_length=50)
-    banner = models.FileField(upload_to='banner/')
-    song_file = models.FileField(upload_to='music/')
+    banner = models.FileField(upload_to="banner/")
+    song_file = models.FileField(upload_to="music/")
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
