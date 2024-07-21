@@ -3,15 +3,18 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import json
 from django.contrib import messages
-from .models import Song
+from .models import *
 
 
 @login_required()
 def home(request):
     if request.method == "GET":
         songs = Song.objects.all()
+        recents = RecentMusic.objects.filter(user=request.user)[::-1][:3]
+            
         context = {
             'songs': songs,
+            'recents': recents,
         }
         return render(request, "pages/music/home.html", context=context)
     else: ...
@@ -54,5 +57,15 @@ def playMusic(request, id):
         request.session['song_banner'] = song.banner.url if song.banner else ''
         request.session['song_file'] = song.song_file.url
         request.session['song_singer'] = song.singer
+
+        recent = RecentMusic.objects.filter(user=request.user, song=song)
+        if recent.exists():
+            recent.delete()
+            
+        recent = RecentMusic.objects.create(
+            user=request.user,
+            song=song,
+        )
+        recent.save()
 
         return redirect('/music/#my_modal_10')

@@ -50,7 +50,31 @@
     <main>
         <article>
             <h5 class="text-2xl font-bold">Recently played</h5>
-            <hr>
+            <hr style="margin-bottom: 10px;">
+            <div style="display:flex;flex-direction: row;flex-wrap: wrap; gap: 10px;">
+            {% if recents %}
+            {% for recent in recents %}
+                <div>
+                    <div class="card bg-base-100 image-full w-96 shadow-xl">
+                        <figure>
+                            <img
+                            src="{{ recent.song.banner.url }}"
+                        alt="Shoes" style="width: 500px;height:200px;"/>
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title" style="font-size: 30px;">{{ recent.song.name }}</h2>
+                        <p>{{ recent.song.description }}</p>
+                        <div class="card-actions justify-end">
+                            <a href="{% url 'play_music' recent.song.id %}"><i class="gg-play-button-o"></i></a>
+                            <a href="{% url 'info_music' recent.song.id %}""><i class="gg-info"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
         </article>
         <article>
             <h5 class="text-2xl font-bold">All songs</h5>
@@ -62,7 +86,7 @@
                         <figure>
                             <img
                             src="{{ song.banner.url }}"
-                        alt="Shoes" />
+                        alt="Shoes" style="width: 500px;height:200px;"/>
                     </figure>
                     <div class="card-body">
                         <h2 class="card-title" style="font-size: 30px;">{{ song.name }}</h2>

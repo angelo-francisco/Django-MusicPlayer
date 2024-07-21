@@ -13,3 +13,8 @@ class Song(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class RecentMusic(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    song = models.ForeignKey(Song, on_delete=models.DO_NOTHING)
