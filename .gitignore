@@ -1,3 +1,6 @@
 venv
 *.pyc
 src/secret
+*.png
+*.bmp
+*.mp3
