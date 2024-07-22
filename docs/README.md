@@ -18,7 +18,8 @@ A simple django app for add, listen and enjoy musics
 </div>
 
 ### Preview
-TODO: ADD PREVIEW
+<img src="imgs/preview.png">
+<img src="imgs/image.png">
 
 ### How to run and contribut?
 
