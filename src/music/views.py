@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.core.serializers import json
 from django.contrib import messages
 from .models import *
 
@@ -39,7 +38,7 @@ def addNewMusic(request):
         messages.success(request, "Nova música adicionada!")
         return redirect(reverse("home"))
 
-
+@login_required()
 def infoMusic(request, id):
     if request.method == "GET":
         song = get_object_or_404(Song, id=id)
@@ -53,6 +52,7 @@ def infoMusic(request, id):
         return redirect("/music/#my_modal_9")
 
 
+@login_required
 def playMusic(request, id):
     if request.method == "GET":
         song = get_object_or_404(Song, id=id)
@@ -72,3 +72,9 @@ def playMusic(request, id):
         recent.save()
 
         return redirect("/music/#my_modal_10")
+
+@login_required()
+def playlists(request):
+    if request.method == "GET":
+        playlists = PlayList.objects.all()
+        return render(request, 'pages/music/playlists.html', {'playlists': playlists})

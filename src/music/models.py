@@ -18,3 +18,11 @@ class Song(models.Model):
 class RecentMusic(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     song = models.ForeignKey(Song, on_delete=models.DO_NOTHING)
+
+class PlayList(models.Model):
+    name = models.CharField(max_length=50)
+    song = models.ForeignKey(Song, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+    def __str__(self) -> str:
+        return self.name

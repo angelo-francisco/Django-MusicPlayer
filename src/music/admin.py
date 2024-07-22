@@ -5,5 +5,6 @@ admin.site.register(
     [
         Song,
         RecentMusic,
+        PlayList,
     ]
 )

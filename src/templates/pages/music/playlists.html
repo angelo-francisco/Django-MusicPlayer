@@ -1,0 +1,51 @@
+{% extends 'base/base-music.html' %}
+
+{% block head %}
+    <link href="https://css.gg/css" rel="stylesheet" />
+{% endblock head %}
+
+{% block title %}
+    Playlists
+{% endblock title %}
+    
+{% block content %}
+{% include "partials/home-navbar.html" %}
+
+<main>
+    <div>
+        
+    </div>
+    {% if playlists %}
+    {% for playlist in playlists %}
+    <article>
+        <h5 class="text-2xl font-bold">playlistly played</h5>
+        <hr style="margin-bottom: 10px;">
+        <div style="display:flex;flex-direction: row;flex-wrap: wrap; gap: 10px;">
+            <div>
+                <div class="card bg-base-100 image-full w-96 shadow-xl">
+                    <figure>
+                        <img
+                        src="{{ playlist.song.banner.url }}"
+                    alt="Shoes" style="width: 500px;height:200px;"/>
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title" style="font-size: 30px;">{{ playlist.song.name }}</h2>
+                    <p>{{ playlist.song.description }}</p>
+                    <div class="card-actions justify-end">
+                        <a href="{% url 'play_music' playlist.song.id %}"><i class="gg-play-button-o"></i></a>
+                        <a href="{% url 'info_music' playlist.song.id %}""><i class="gg-info"></i></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <div style="display: flex;justify-content: center;align-items: center;margin-top: 300px;font-size: 30px;">
+        No playlists created
+    </div>
+    {% endif %}
+</main>
+{% endblock %}
