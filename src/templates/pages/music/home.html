@@ -9,6 +9,22 @@
 {% endblock title %}
     
 {% block content %}
+    <div class="modal" role="dialog" id="my_modal_11">
+        <div class="card bg-base-100 w-96 shadow-xl" style="border-radius: 8px;">
+            <div class="card-body">
+                <form action="{% url 'add_effective' %}" method="POST">
+                    {% csrf_token %}
+                    <select name="playlist_selected" class="select select-bordered select-sm w-full max-w-xs">
+                        {% for playlist in request.session.playlists %}
+                            <option value="{{ playlist.id }}">{{ playlist.name }}</option>
+                        {% endfor %}
+                    </select>   
+                    <button class="btn w-full" style="margin-top: 8px;">Add</button>
+                </form>
+            </div>
+            <a href="/" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" style="border-radius: 8px;" >✕</a>
+        </div>
+    </div>
     <div class="modal" role="dialog" id="my_modal_9">
         <div class="card bg-base-100 w-96 shadow-xl" style="border-radius: 8px;">
             <figure>
@@ -48,6 +64,7 @@
     </dialog>
     {% include 'partials/home-navbar.html' %}
     <main>
+        
         <article>
             <h5 class="text-2xl font-bold">Recently played</h5>
             <hr style="margin-bottom: 10px;">
@@ -67,7 +84,7 @@
                         <div class="card-actions justify-end">
                             <a href="{% url 'play_music' recent.song.id %}"><i class="gg-play-button-o"></i></a>
                             <a href="{% url 'info_music' recent.song.id %}""><i class="gg-info"></i></a>
-
+                            <a href="{% url 'add_playlist' recent.song.id %}""><i class="gg-add"></i></a>
                         </div>
                     </div>
                 </div>
@@ -94,6 +111,7 @@
                         <div class="card-actions justify-end">
                             <a href="{% url 'play_music' song.id %}"><i class="gg-play-button-o"></i></a>
                             <a href="{% url 'info_music' song.id %}""><i class="gg-info"></i></a>
+                            <a href="{% url 'add_playlist' song.id %}""><i class="gg-add"></i></a>
 
                         </div>
                     </div>

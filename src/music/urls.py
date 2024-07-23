@@ -6,5 +6,7 @@ urlpatterns = [
     path("new_music/", views.addNewMusic, name="add_music"),
     path("info/<int:id>/", views.infoMusic, name="info_music"),
     path("play/<int:id>/", views.playMusic, name="play_music"),
-    path("playlists/", views.playlists, name="playlists")
+    path("playlists/", views.playlists, name="playlists"),
+    path("add_playlist/<int:id>", views.add_music_playlist, name="add_playlist"),
+    path("add_music_playlist/", views.add_effective, name="add_effective"),
 ]

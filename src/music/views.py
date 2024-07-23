@@ -17,7 +17,15 @@ def home(request):
         }
         return render(request, "pages/music/home.html", context=context)
     else:
-        ...
+        search = request.POST['search']
+        songs = Song.objects.filter(name__icontains=search)
+        recents = RecentMusic.objects.filter(user=request.user)[::-1][:3]
+
+        context = {
+            "songs": songs,
+            "recents": recents,
+        }
+        return render(request, "pages/music/home.html", context=context)
 
 
 @login_required()
@@ -78,3 +86,29 @@ def playlists(request):
     if request.method == "GET":
         playlists = PlayList.objects.all()
         return render(request, 'pages/music/playlists.html', {'playlists': playlists})
+    else:
+        name = request.POST['playlist-name']
+        playlist = PlayList.objects.create(name=name, user=request.user)
+        playlist.save()
+
+        return redirect(reverse('playlists'))
+
+@login_required()
+def add_music_playlist(request, id):
+    song = Song.objects.get(id=id)
+
+    if request.method == "GET":
+        playlists = list(PlayList.objects.filter(user=request.user).values())
+        request.session['playlists'] = playlists
+        request.session['song'] = id
+
+        return redirect("/music/#my_modal_11")
+
+
+@login_required()
+def add_effective(request):
+    new_song = Song.objects.get(id=request.session['song'])
+    playlists = PlayList.objects.get(id=request.POST['playlist_selected'])
+    playlists.song.add(new_song)
+
+    return redirect(reverse('playlists'))

@@ -81,7 +81,11 @@
         </div>
         <div class="navbar-end">
             <div class="form-control">
-                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+                <form action="{% url 'home' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" name="search"/>
+                    <button class="btn">Pesquisar</button>
+                </form>
               </div>
               <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
