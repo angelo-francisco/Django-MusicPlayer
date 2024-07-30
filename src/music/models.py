@@ -19,6 +19,7 @@ class RecentMusic(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     song = models.ForeignKey(Song, on_delete=models.DO_NOTHING)
 
+
 class PlayList(models.Model):
     name = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
