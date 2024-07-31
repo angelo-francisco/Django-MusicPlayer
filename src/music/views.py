@@ -115,3 +115,10 @@ def add_effective(request):
     playlists.song.add(new_song)
 
     return redirect(reverse("playlists"))
+
+
+def delete_playlist(request, id):
+    playlist = PlayList.objects.get(id=id)
+    playlist.delete()
+
+    return redirect(reverse("playlists"))

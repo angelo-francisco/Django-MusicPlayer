@@ -24,7 +24,10 @@
     {% if playlists %}
     {% for playlist in playlists %}
     <article>
-        <h5 class="text-2xl font-bold">{{ playlist.name}}</h5>
+        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+            <h5 class="text-2xl font-bold">{{ playlist.name }}</h5>
+            <a href="{% url 'delete_playlist' playlist.id %}">❌</a>
+        </div>
         <hr style="margin-bottom: 10px;">
         {% if playlist.song %}
         <div style="display:flex;flex-direction: row;flex-wrap: wrap; gap: 10px;">
